@@ -19,4 +19,39 @@ Script GUI de auto-subtitulado basado en **Tkinter**, utiliza el modelo **Whispe
    stable-whisper==2.0.0
    stable-ts==1.0.0
    tkinter
+## Instalación
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/tu-usuario/transcriptor-audio-tkinter.git
+   cd transcriptor-audio-tkinter
+   ```
+2. Instala las dependencias:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Asegúrate de tener FFmpeg instalado si planeas trabajar con formatos no estándar:
+   - **En Linux**: 
+     ```bash
+     sudo apt install ffmpeg
+     ```
+   - **En Windows**: Descarga desde [FFmpeg.org](https://ffmpeg.org/download.html) y agrégalo al `PATH`.
 
+## Uso
+1. Ejecuta la aplicación:
+   ```bash
+   python transcriptor_gui.py
+   ```
+2. Usa la interfaz para:
+   - Seleccionar un archivo de audio de entrada.
+   - Configurar opciones como modelo, idioma y parámetros avanzados.
+   - Especificar la ubicación de salida o usar el nombre predeterminado.
+3. Haz clic en **Convertir** y espera a que la transcripción se complete. Si activaste la opción, el archivo se abrirá automáticamente al finalizar.
+
+## Capturas de Pantalla
+*(Agrega aquí imágenes de la GUI en funcionamiento.)*
+
+## Contribuciones
+Las contribuciones son bienvenidas. Si encuentras errores o deseas agregar nuevas funcionalidades, no dudes en abrir un *issue* o enviar un *pull request*.
+
+## Licencia
+Este proyecto está bajo la Licencia MIT. Consulta el archivo `LICENSE` para más detalles.
