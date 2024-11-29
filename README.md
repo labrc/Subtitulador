@@ -22,8 +22,8 @@ Script GUI de auto-subtitulado basado en **Tkinter**, utiliza el modelo **Whispe
 ## Instalación
 1. Clona el repositorio:
    ```bash
-   git clone https://github.com/tu-usuario/transcriptor-audio-tkinter.git
-   cd transcriptor-audio-tkinter
+   git clone https://github.com/labrc/Subtitulador.git
+   cd Subtitulador
    ```
 2. Instala las dependencias:
    ```bash
@@ -48,7 +48,7 @@ Script GUI de auto-subtitulado basado en **Tkinter**, utiliza el modelo **Whispe
 3. Haz clic en **Convertir** y espera a que la transcripción se complete. Si activaste la opción, el archivo se abrirá automáticamente al finalizar.
 
 ## Capturas de Pantalla
-*(Agrega aquí imágenes de la GUI en funcionamiento.)*
+*(Pronto imágenes de la GUI en funcionamiento.)*
 
 ## Contribuciones
 Las contribuciones son bienvenidas. Si encuentras errores o deseas agregar nuevas funcionalidades, no dudes en abrir un *issue* o enviar un *pull request*.
