@@ -39,7 +39,7 @@ Script GUI de auto-subtitulado basado en **Tkinter**, utiliza el modelo **Whispe
 ## Uso
 1. Ejecuta la aplicación:
    ```bash
-   python transcriptor_gui.py
+   python subtitulos.py
    ```
 2. Usa la interfaz para:
    - Seleccionar un archivo de audio de entrada.
