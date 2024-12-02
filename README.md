@@ -1,4 +1,4 @@
-# Subtitulador con GUI en Tkinter
+# Subtitulador GUI en Tkinter (python)
 Script GUI de auto-subtitulado basado en **Tkinter**, utiliza el modelo **Whisper** y **StableTS**. Obtené transcripciones y subtiutlados IA gratuitos en tu PC de corriendo este script de forma local.
 
 ## Características principales
