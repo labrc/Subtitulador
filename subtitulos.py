@@ -8,17 +8,38 @@ import json
 CONFIG_FILE = "config.json"
 
 def save_config(config_data):
-    """Guarda la configuración en un archivo JSON."""
+    serializable_config = {
+        key: (value.get() if hasattr(value, "get") else value)
+        for key, value in config_data.items()
+    }
     with open(CONFIG_FILE, "w") as file:
-        json.dump(config_data, file, indent=4)
+        json.dump(serializable_config, file, indent=4)
 
 def load_config():
-    """Carga la configuración desde un archivo JSON."""
     try:
         with open(CONFIG_FILE, "r") as file:
-            return json.load(file)
+            data = json.load(file)
+            return {
+                "input_path": data.get("input_path", ""),
+                "output_path": data.get("output_path", ""),
+                "model_name": data.get("model_name", "medium"),
+                "language": data.get("language", "Auto"),
+                "word_timestamps": tk.BooleanVar(value=data.get("word_timestamps", False)),
+                "temperature": tk.DoubleVar(value=data.get("temperature", 0.5)),
+                "max_initial_timestamp": data.get("max_initial_timestamp", 0.0),
+                "beam_size": data.get("beam_size", 5),
+                "batch_size": data.get("batch_size", 16),
+                "suppress_tokens": data.get("suppress_tokens", ""),
+                "compression_ratio_threshold": data.get("compression_ratio_threshold", 2.5),
+                "segment_level": tk.BooleanVar(value=data.get("segment_level", True)),
+                "word_level": tk.BooleanVar(value=data.get("word_level", True)),
+                "tag": data.get("tag", "('<font color=\"#00ff00\">', '</font>')"),
+                "vtt": tk.BooleanVar(value=data.get("vtt", False)),
+                "reverse_text": tk.BooleanVar(value=data.get("reverse_text", False)),
+            }
     except FileNotFoundError:
-        return {}  # Devuelve un diccionario vacío si el archivo no existe
+        print("Archivo de configuración no encontrado. Se usará configuración predeterminada.")
+        return {}
 
 def convert_audio():
     input_path = input_entry.get()
@@ -46,11 +67,11 @@ def convert_audio():
         "batch_size": batch_size,
         "suppress_tokens": suppress_tokens,
         "compression_ratio_threshold": compression_ratio_threshold,
-        "segment_level": segment_level,
-        "word_level": word_level,
-        "tag": tag,
-        "vtt": vtt,
-        "reverse_text": reverse_text,
+        "segment_level": segment_level_var.get(),
+        "word_level": word_level_var.get(),
+        "tag": tag_entry,
+        "vtt": vtt_var,
+        "reverse_text": reverse_text_var,
     }
     save_config(config)
 
@@ -216,32 +237,32 @@ fragment_sep_entry.grid(row=4, column=1, padx=5, pady=5)
 frame_right = tk.Frame(frame_settings)
 frame_right.grid(row=0, column=1, padx=10, pady=10, sticky="ne")
 frame_right.configure(bg="#080f15")
-tk.Label(frame_right, text="Segment-level Timestamps:",fg="#d3d4d5", bg="grey10").grid(row=0, column=0, padx=5, pady=5)
+tk.Label(frame_right, text="Segment-level Timestamps:",fg="#d3d4d5", bg="#080f15").grid(row=0, column=0, padx=5, pady=5)
 segment_level_var = tk.BooleanVar(value=True)
 segment_level_checkbox = tk.Checkbutton(frame_right, text="Habilitar", variable=segment_level_var)
 segment_level_checkbox.grid(row=0, column=1, padx=5, pady=5)
 
-tk.Label(frame_right, text="Word-level Timestamps:",fg="#d3d4d5", bg="grey10").grid(row=1, column=0, padx=5, pady=5)
+tk.Label(frame_right, text="Word-level Timestamps:",fg="#d3d4d5", bg="#080f15").grid(row=1, column=0, padx=5, pady=5)
 word_level_var = tk.BooleanVar(value=True)
 word_level_checkbox = tk.Checkbutton(frame_right, text="Habilitar", variable=word_level_var)
 word_level_checkbox.grid(row=1, column=1, padx=5, pady=5)
 
-tk.Label(frame_right, text="Duración Mínima (s):",fg="#d3d4d5", bg="grey10").grid(row=2, column=0, padx=5, pady=5)
+tk.Label(frame_right, text="Duración Mínima (s):",fg="#d3d4d5", bg="#080f15").grid(row=2, column=0, padx=5, pady=5)
 min_dur_var = tk.DoubleVar(value=0.2)
 min_dur_entry = tk.Entry(frame_right, textvariable=min_dur_var, width=10)
 min_dur_entry.grid(row=2, column=1, padx=5, pady=5)
 
-tk.Label(frame_right, text="Tag Inicio/Fin:",fg="#d3d4d5", bg="grey10").grid(row=3, column=0, padx=5, pady=5)
+tk.Label(frame_right, text="Tag Inicio/Fin:",fg="#d3d4d5", bg="#080f15").grid(row=3, column=0, padx=5, pady=5)
 tag_entry = tk.Entry(frame_right, width=40)
 tag_entry.insert(0, "('<font color=\"#00ff00\">', '</font>')")
 tag_entry.grid(row=3, column=1, padx=5, pady=5)
 
-tk.Label(frame_right, text="Formato VTT:",fg="#d3d4d5", bg="grey10").grid(row=4, column=0, padx=5, pady=5)
+tk.Label(frame_right, text="Formato VTT:",fg="#d3d4d5", bg="#080f15").grid(row=4, column=0, padx=5, pady=5)
 vtt_var = tk.BooleanVar(value=False)
 vtt_checkbox = tk.Checkbutton(frame_right, text="Habilitar", variable=vtt_var)
 vtt_checkbox.grid(row=4, column=1, padx=5, pady=5)
 
-tk.Label(frame_right, text="Texto Invertido:",fg="#d3d4d5", bg="grey10").grid(row=5, column=0, padx=5, pady=0)
+tk.Label(frame_right, text="Texto Invertido:",fg="#d3d4d5", bg="#080f15").grid(row=5, column=0, padx=5, pady=0)
 reverse_text_var = tk.BooleanVar(value=False)
 reverse_text_checkbox = tk.Checkbutton(frame_right, text="Habilitar", variable=reverse_text_var)
 reverse_text_checkbox.grid(row=5, column=1, padx=5, pady=0)
@@ -285,7 +306,7 @@ suppress_tokens_entry.grid(row=2, column=1, padx=5, pady=5)
 # Umbral de compresión
 tk.Label(frame_advanced, text="Umbral de Compresión:",fg="#d3d4d5", bg="grey10").grid(row=3, column=0, padx=5, pady=5)
 compression_ratio_entry = tk.Entry(frame_advanced, width=10)
-compression_ratio_entry.insert(0, "2.5")
+#compression_ratio_entry.insert(0, "2.5")
 compression_ratio_entry.grid(row=3, column=1, padx=5, pady=0)
 # Etiqueta de estado
 status_label = tk.Label(root, text="", fg="red")
@@ -384,22 +405,24 @@ if not os.path.exists(CONFIG_FILE):
 
 def apply_config():
     config = load_config()
+
+    # Rellenar entradas con valores cargados
     input_entry.insert(0, config.get("input_path", ""))
     output_entry.insert(0, config.get("output_path", ""))
     model_var.set(config.get("model_name", "medium"))
     language_var.set(config.get("language", "Auto"))
-    timestamps_var.set(config.get("word_timestamps", False))
-    temperature_var.set(config.get("temperature", 0.5))
+    timestamps_var.set(config["word_timestamps"].get())
+    temperature_var.set(config["temperature"].get())
     fragment_sep_entry.insert(0, str(config.get("max_initial_timestamp", "")))
     beam_size_entry.insert(0, str(config.get("beam_size", "5")))
     batch_size_entry.insert(0, str(config.get("batch_size", "16")))
     suppress_tokens_entry.insert(0, config.get("suppress_tokens", ""))
     compression_ratio_entry.insert(0, str(config.get("compression_ratio_threshold", "2.5")))
-    segment_level_var.set(config.get("segment_level", True))
-    word_level_var.set(config.get("word_level", True))
-    tag_entry.insert(0, config.get("tag", "('<font color=\"#00ff00\">', '</font>')"))
-    vtt_var.set(config.get("vtt", False))
-    reverse_text_var.set(config.get("reverse_text", False))
+    segment_level_var.set(config["segment_level"].get())
+    word_level_var.set(config["word_level"].get())
+    tag_entry.insert(0, config.get("tag", "<font color=\"#00ff00\">, </font>"))
+    vtt_var.set(config["vtt"].get())
+    reverse_text_var.set(config["reverse_text"].get())
 
 apply_config()
 
