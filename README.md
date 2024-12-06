@@ -55,7 +55,7 @@ Script GUI de auto-subtitulado basado en **Tkinter**, utiliza el modelo **Whispe
 3. Hacé clic en **Procesar archivo** (el boton verde) y espera a que la transcripción se complete. Luego elegí exportar en .srt o en texto
 
 ## Capturas de Pantalla
-*(Pronto imágenes de la GUI en funcionamiento.)*
+![imagen](https://github.com/user-attachments/assets/5c6e97d3-aabf-4668-a9e7-36d8f24b52ec)
 
 ## Contribuciones
 Las contribuciones son bienvenidas. Si encuentras errores o deseas agregar nuevas funcionalidades, no dudes en abrir un *issue* o enviar un *pull request*.
