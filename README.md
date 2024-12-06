@@ -25,10 +25,13 @@ Script GUI de auto-subtitulado basado en **Tkinter**, utiliza el modelo **Whispe
    git clone https://github.com/labrc/Subtitulador.git
    cd Subtitulador
    ```
+   ó descarga el contenido del proyecto y descomprimilo en una carpeta
 2. Instala las dependencias:
-   ```bash
-   pip install -r requirements.txt
-   ```
+   - **En Linux**:
+     ```bash   
+     pip install -r requirements.txt
+     ```
+    - **En Windows**: Ejecutá instalar.bat
 3. Asegúrate de tener FFmpeg instalado si planeas trabajar con formatos no estándar:
    - **En Linux**: 
      ```bash
@@ -39,13 +42,17 @@ Script GUI de auto-subtitulado basado en **Tkinter**, utiliza el modelo **Whispe
 ## Uso
 1. Ejecuta la aplicación:
    ```bash
-   python subtitulos.py
+   pythonw subtitulos.py
    ```
+  ó doble click en subtitulos.bat
+  
 2. Usa la interfaz para:
    - Seleccionar un archivo de audio de entrada.
    - Configurar opciones como modelo, idioma y parámetros avanzados.
    - Especificar la ubicación de salida o usar el nombre predeterminado.
-3. Haz clic en **Convertir** y espera a que la transcripción se complete. Si activaste la opción, el archivo se abrirá automáticamente al finalizar.
+   - Agregar palabras a la detección
+    ó Simplemente no toques nada y pasa al punto 3
+3. Hacé clic en **Procesar archivo** (el boton verde) y espera a que la transcripción se complete. Luego elegí exportar en .srt o en texto
 
 ## Capturas de Pantalla
 *(Pronto imágenes de la GUI en funcionamiento.)*
